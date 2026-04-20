@@ -1,41 +1,85 @@
 import os
+from pathlib import Path
 
-def calculate_bmi():
-    try:
-        height = float(input("Enter height in meters (e.g., 1.75): "))
-        weight = float(input("Enter weight in kilograms (e.g., 70): "))
-    except ValueError:
-        print("Invalid input. Please enter numeric values.")
-        return
 
-    if height <= 0 or weight <= 0:
-        print("Height and weight must be positive numbers.")
-        return
+def get_float_input(prompt: str) -> float:
+    """Safely get a positive float from user input."""
+    while True:
+        try:
+            value = float(input(prompt))
+            if value <= 0:
+                raise ValueError("Value must be positive.")
+            return value
+        except ValueError as e:
+            print(f"Invalid input: {e}")
 
-    bmi = weight / (height ** 2)
-    category = ""
 
+def calculate_bmi_value(height: float, weight: float) -> float:
+    """Calculate BMI."""
+    return weight / (height ** 2)
+
+
+def classify_bmi(bmi: float) -> str:
+    """Return BMI category."""
     if bmi < 18.5:
-        category = "Underweight"
-    elif bmi < 24.9:
-        category = "Normal weight"
-    elif bmi < 29.9:
-        category = "Overweight"
+        return "Underweight"
+    elif bmi < 25:
+        return "Normal weight"
+    elif bmi < 30:
+        return "Overweight"
+    return "Obese"
+
+
+def format_result(height: float, weight: float, bmi: float, category: str) -> str:
+    """Format result string."""
+    return (
+        f"Height: {height} m\n"
+        f"Weight: {weight} kg\n"
+        f"BMI: {bmi:.2f}\n"
+        f"Category: {category}\n"
+    )
+
+
+def get_valid_directory() -> Path:
+    """Prompt user until a valid directory is provided."""
+    while True:
+        dir_path = input("Enter directory to save result: ").strip()
+        path = Path(dir_path)
+        if path.is_dir():
+            return path
+        print("Invalid directory path. Try again.")
+
+
+def save_to_file(directory: Path, content: str, filename: str = "bmi_result.txt") -> Path:
+    """Save content to a file."""
+    output_path = directory / filename
+    try:
+        output_path.write_text(content)
+        return output_path
+    except OSError as e:
+        print(f"Error saving file: {e}")
+        return None
+
+
+def main():
+    print("=== BMI Calculator ===")
+
+    height = get_float_input("Enter height (meters): ")
+    weight = get_float_input("Enter weight (kg): ")
+
+    bmi = calculate_bmi_value(height, weight)
+    category = classify_bmi(bmi)
+
+    result = format_result(height, weight, bmi, category)
+
+    directory = get_valid_directory()
+    output_path = save_to_file(directory, result)
+
+    if output_path:
+        print(f"\nResult saved at: {output_path}")
     else:
-        category = "Obese"
+        print("\nFailed to save result.")
 
-    result = f"Height: {height} m\nWeight: {weight} kg\nBMI: {bmi:.2f}\nCategory: {category}\n"
-
-    dir_path = input("Enter the directory where you want to save the result (e.g., /path/to/folder): ").strip()
-    if not os.path.isdir(dir_path):
-        print("Invalid directory path.")
-        return
-
-    output_path = os.path.join(dir_path, "bmi_result.txt")
-    with open(output_path, "w") as file:
-        file.write(result)
-
-    print(f"BMI result saved at: {output_path}")
 
 if __name__ == "__main__":
-    calculate_bmi()
+    main()
