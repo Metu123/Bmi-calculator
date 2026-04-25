@@ -20,7 +20,6 @@ def calculate_bmi_value(height: float, weight: float) -> float:
 
 
 def classify_bmi(bmi: float) -> str:
-    """Return BMI category."""
     if bmi < 18.5:
         return "Underweight"
     elif bmi < 25:
