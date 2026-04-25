@@ -3,7 +3,7 @@ from pathlib import Path
 
 
 def get_float_input(prompt: str) -> float:
-    """Safely get a positive float number from user input."""
+    
     while True:
         try:
             value = float(input(prompt))
