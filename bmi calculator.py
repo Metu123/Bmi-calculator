@@ -30,7 +30,7 @@ def classify_bmi(bmi: float) -> str:
 
 
 def format_result(height: float, weight: float, bmi: float, category: str) -> str:
-    """Format result string."""
+    
     return (
         f"Height: {height} m\n"
         f"Weight: {weight} kg\n"
