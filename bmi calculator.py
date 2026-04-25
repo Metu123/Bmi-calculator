@@ -43,7 +43,7 @@ def format_result(height: float, weight: float, bmi: float, category: str) -> st
 def get_valid_directory() -> Path:
     """Prompt user until a valid directory is provided."""
     while True:
-        dir_path = input("Enter directory to save result: ").strip()
+        dir_path = input("Enter directory to save results: ").strip()
         path = Path(dir_path)
         if path.is_dir():
             return path
