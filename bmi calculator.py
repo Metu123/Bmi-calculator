@@ -15,7 +15,7 @@ def get_float_input(prompt: str) -> float:
 
 
 def calculate_bmi_value(height: float, weight: float) -> float:
-    """Calculate BMI."""
+    
     return weight / (height ** 2)
 
 
