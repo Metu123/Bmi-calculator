@@ -1,39 +1,3 @@
-BMI Calculator (Python Script Documentation)
-
-Overview
-
-This script is a command-line Body Mass Index (BMI) calculator that computes a user’s BMI based on height and weight, classifies the result into standard health categories, and saves the output to a user-defined directory.
-
-It includes input validation, formatting, and file saving functionality.
-
-
----
-
-Features
-
-Interactive BMI calculation (height and weight input)
-
-Input validation (ensures numeric and positive values)
-
-Automatic BMI classification
-
-Formatted result output
-
-Saves results to a file
-
-User-defined output directory
-
-Error handling for invalid inputs and file operations
-
-
-
----
-
-Requirements
-
-Python Version
-
-Python 3.7+
 
 
 Dependencies
